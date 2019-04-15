@@ -9,7 +9,35 @@
 namespace MagnoKsm\ORM\Drivers;
 
 
-class MysqlPdo
+class MysqlPdo implements DriverStrategy
 {
+    public function save(Model $data)
+    {
 
+    }
+
+    public function select(array $data = [])
+    {
+
+    }
+
+    public function delete(array $data = [])
+    {
+
+    }
+
+    public function exec(string $query = null)
+    {
+
+    }
+
+    public function all(array $data = [])
+    {
+
+    }
+
+    public function first(array $data = [])
+    {
+
+    }
 }

@@ -8,10 +8,12 @@
 
 namespace MagnoKsm\ORM;
 
+use MagnoKsm\ORM\Drivers\DriverStrategy;
+
 
 class Model
 {
-    public function setDriver($driver)
+    public function setDriver(DriverStrategy $driver)
     {
         return $driver;
     }
