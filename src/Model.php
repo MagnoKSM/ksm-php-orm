@@ -15,7 +15,7 @@ class Model
 {
     protected $driver;
 
-    protected $id;
+    public $id;
 
     public function setDriver(DriverStrategy $driver)
     {
