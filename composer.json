@@ -1,0 +1,17 @@
+{
+    "name": "magnoksm/ksm-php-orm",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Magno Sousa",
+            "email": "magno.bds@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "MagnoKsm\\ORM\\": "src"
+        }
+    }
+}
