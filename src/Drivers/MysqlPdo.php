@@ -32,7 +32,16 @@ class MysqlPdo implements DriverStrategy
     {
         if (!empty($data->id)) {
             $this->update($data);
+            return $this;
         }
+
+        $this->insert($data);
+
+        return $this;
+    }
+
+    public function insert(Model $data)
+    {
         $query = 'INSERT INTO %s (%s) VALUES (%s)';
 
         $fields = [];
@@ -40,11 +49,11 @@ class MysqlPdo implements DriverStrategy
 
         foreach ($data as $field => $value) {
             $fields[] = $field;
-            $fields_to_bind[] = ':'. $field;
+            $fields_to_bind[] = ':' . $field;
         }
 
-        $fields = implode(',', $fields);
-        $fields_to_bind = implode(',', $fields_to_bind);
+        $fields = implode(', ', $fields);
+        $fields_to_bind = implode(', ', $fields_to_bind);
 
         $query = sprintf($query, $this->table, $fields, $fields_to_bind);
 
@@ -57,6 +66,10 @@ class MysqlPdo implements DriverStrategy
 
     protected function update($data)
     {
+        if (!empty($data->id)) {
+            throw new \Exception("Id is required...");
+        }
+
         $query = 'UPDATE %s SET %s ';
 
         $data_to_update = $this->params($query);

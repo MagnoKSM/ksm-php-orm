@@ -11,12 +11,20 @@ class ComposerStaticInita6e1cfc70fa4bfcbfc8098bc46514db1
         array (
             'MagnoKsm\\ORM\\' => 13,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'MagnoKsm\\ORM\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

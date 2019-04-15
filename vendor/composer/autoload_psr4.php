@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'MagnoKsm\\ORM\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/app'),
 );
