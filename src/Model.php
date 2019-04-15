@@ -13,9 +13,13 @@ use MagnoKsm\ORM\Drivers\DriverStrategy;
 
 class Model
 {
+    protected $driver;
+
     public function setDriver(DriverStrategy $driver)
     {
-        return $driver;
+        $this->driver;
+
+        return $this;
     }
 
     protected function getDriver()
