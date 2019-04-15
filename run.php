@@ -13,3 +13,5 @@ $driver->setTable('users');
 $model = new Model;
 $model->setDriver($driver);
 
+$model->id = 1;
+$model->delete();

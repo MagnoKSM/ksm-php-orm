@@ -15,8 +15,6 @@ class Model
 {
     protected $driver;
 
-    public $id;
-
     public function setDriver(DriverStrategy $driver)
     {
         $this->driver = $driver;

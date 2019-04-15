@@ -15,7 +15,6 @@ class MysqlPdo implements DriverStrategy
 {
     protected $pdo;
     protected $table;
-    protected $query;
 
     public function __construct(\PDO $pdo)
     {
@@ -88,9 +87,18 @@ class MysqlPdo implements DriverStrategy
         return $this;
     }
 
-    public function delete(array $data = [])
+    public function delete(array $conditions = [])
     {
+        $query = 'DELETE FROM ' . $this->table;
 
+        $data = $this->params($conditions);
+        $query .= ' WHERE '. $data;
+
+        $this->query = $this->pdo->prepare($query);
+
+        $this->bind($conditions);
+
+        return $this;
     }
 
     public function exec(string $query = null)
