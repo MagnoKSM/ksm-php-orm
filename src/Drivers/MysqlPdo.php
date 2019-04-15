@@ -15,6 +15,7 @@ class MysqlPdo implements DriverStrategy
 {
     protected $pdo;
     protected $table;
+    protected $query;
 
     public function __construct(\PDO $pdo)
     {
@@ -44,13 +45,29 @@ class MysqlPdo implements DriverStrategy
         $fields_to_bind = implode(',', $fields_to_bind);
 
         $query = sprintf($query, $this->table, $fields, $fields_to_bind);
-var_dump($query);
+
+        $this->query = $this->pdo->prepare($query);
+
+        $this->bind($data);
+
         return $this;
     }
 
-    public function select(array $data = [])
+    public function select(array $conditions = [])
     {
+        $query = 'SELECT * FROM ' . $this->table;
 
+        $data = $this->params($conditions);
+
+        if (!empty($data)) {
+            $query .= ' WHERE '. $data;
+        }
+
+        $this->query = $this->pdo->prepare($query);
+
+        $this->bind($data);
+
+        return $this;
     }
 
     public function delete(array $data = [])
@@ -60,16 +77,38 @@ var_dump($query);
 
     public function exec(string $query = null)
     {
+        if (!empty($query)) {
+            $this->query = $this->pdo->prepare($query);
+        }
 
+        $this->query->execute();
+        return $this;
     }
 
     public function all(array $data = [])
     {
-
+        return $this->query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function first(array $data = [])
     {
+        return $this->query->fetch(\PDO::FETCH_ASSOC);
+    }
 
+    protected function params($conditions)
+    {
+        $fields = [];
+        foreach ($conditions as $field => $value) {
+            $fields[] = $field . '=:' . $field;
+        }
+
+        return implode(',', $fields);
+    }
+
+    public function bind($data)
+    {
+        foreach ($data as $field => $value) {
+            $this->query->bindValue($field, $value);
+        }
     }
 }
